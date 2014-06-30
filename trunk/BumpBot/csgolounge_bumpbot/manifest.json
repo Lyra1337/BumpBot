@@ -1,6 +1,6 @@
 {
   "name": "CS:GO Lounge Bump Bot",
-  "version": "1.0",
+  "version": "1.0.1",
   "description": "Auto-Bumps your CS:GO Lounge trades",
   "icons": {
     "16": "16.png",
