@@ -10,7 +10,7 @@
   },
   "content_scripts": [
     {
-      "matches": [ "*://*.csgolounge.com/*" ],
+      "matches": [ "*://*.csgolounge.com/mytrades*" ],
       "js": [ "jquery.js", "csgolounge.js" ],
 	  "run_at": "document_end"
     }

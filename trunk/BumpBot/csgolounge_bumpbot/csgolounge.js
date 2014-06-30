@@ -1,46 +1,71 @@
-function GetTradeIds() {
-	var ids = new Array();
+function GetTradeItems() {
+	var items = new Array();
 	
-	$('article div[class="tradepoll"]').each(function(index, item) {
-		var id = $(item).attr('id').split('trade')[1];
-		ids.push(id);
+	//$('article div[class="tradepoll"]').each(function(index, item) {
+	$('article div[class="tradepoll"] .buttonright').each(function(index, item) {
+		items.push($(item).parent().parent());
+		//items.push($(item));
+		//items.push($(item).attr('id').split('trade')[1])
 	});
 	
-	return ids;
+	return items;
 }
 
-function SlowForEach(array, iterationCallback, finishCallback, min, max) {
+function SlowForEach(array, finishCallback, min, max) {
 	var timeOffset = 0.0;
 	
-	for (var i = 0; i < array.length; i++) {
-		timeOffset += ((Math.random() * max) + min);
-		
-		setTimeout(function() {
-			iterationCallback({
-				index: i,
-				item: array[i],
-				collection: array
-			});
-		}, timeOffset);
-	}
-	
-	setTimeout(finishCallback, timeOffset + 1);
+	Iterate(0, array, 0.0, min, max, finishCallback);
 }
 
-function SlowIteration(data) {
-	bumpTrade(data.collection[data.index]);
+function Iterate(index, array, offset, offsetMin, offsetMax, finishCallback) {
+	if(index >= array.length) {
+		finishCallback();
+		return;
+	}
+	
+	offset += ((Math.random() * offsetMax) + offsetMin);
+	
+	setTimeout(function() {
+		var data = {
+			index: index,
+			item: array[index],
+			collection: array
+		};
+		
+		IterationCallback(data);
+		
+		Iterate(index + 1, array, offset, offsetMin, offsetMax, finishCallback);
+	}, offset);
+}
+
+function IterationCallback(data) {
+	//data.collection[data.index].find('.buttonright').click();
+	//var code = data.collection[data.index].find('.buttonright').attr('onclick');
+	//eval(code);
+	var tradeId = data.item.attr('id').split('trade')[1];
+	
+	$.ajax({
+		type: "POST",
+		url: "ajax/bumpTrade.php",
+		data: "trade=" + tradeId
+	});
+	
+	data.item.find('.buttonright').hide();
+	
+	if(typeof console !== 'undefined') {
+		console.log('bumped ' + tradeId);
+	}
 }
 
 function BumpAllTrades() {
-	var trades = GetTradeIds();
-
-	SlowForEach(trades, SlowIteration, 2, 8);
+	SlowForEach(
+		GetTradeItems(),
+		function () {
+			setTimeout(BumpAllTrades, ((Math.random() * 40) + 31) * 1000 * 60);
+		},
+		2,
+		8
+	);
 }
 
-function NextBump() {
-	BumpAllTrades();
-	
-	setTimeout(NextBump, ((Math.random() * 40) + 31) * 1000 * 60);
-}
-
-NextBump();
+BumpAllTrades();
