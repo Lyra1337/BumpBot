@@ -5,7 +5,8 @@
   "icons": {
     "16": "16.png",
 	"36": "36.png",
-	"48": "48.png"
+	"48": "48.png",
+	"128": "128.png"
   },
   "content_scripts": [
     {
@@ -14,9 +15,5 @@
 	  "run_at": "document_end"
     }
   ],
-  "permissions": [
-	"tabs"
-  ],
-  "options_page": "options.html",
   "manifest_version": 2
 }
