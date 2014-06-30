@@ -23,7 +23,7 @@ function Iterate(index, array, offset, offsetMin, offsetMax, finishCallback) {
 		return;
 	}
 	
-	offset += ((Math.random() * offsetMax) + offsetMin);
+	offset += ((Math.random() * (offsetMax * 1000)) + (offsetMin * 1000));
 	
 	setTimeout(function() {
 		var data = {
