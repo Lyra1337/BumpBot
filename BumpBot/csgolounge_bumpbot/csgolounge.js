@@ -63,8 +63,8 @@ function BumpAllTrades() {
 		function () {
 			setTimeout(BumpAllTrades, ((Math.random() * 40) + 31) * 1000 * 60);
 		},
-		0.5,
-		3.5
+		0.2,
+		1.7
 	);
 }
 
