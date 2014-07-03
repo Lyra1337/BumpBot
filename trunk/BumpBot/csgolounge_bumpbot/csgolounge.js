@@ -57,7 +57,8 @@ function BumpAllTrades() {
 	SlowForEach(
 		GetTradeItems(),
 		function () {
-			setTimeout(BumpAllTrades, ((Math.random() * 40) + 31) * 1000 * 60);
+			window.location.reload(true);
+			//setTimeout(BumpAllTrades, ((Math.random() * 40) + 31) * 1000 * 60);
 		},
 		0.2,
 		1.7
