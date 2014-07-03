@@ -44,11 +44,7 @@ function IterationCallback(data) {
 	//eval(code);
 	var tradeId = data.item.attr('id').split('trade')[1];
 	
-	$.ajax({
-		type: "POST",
-		url: "ajax/bumpTrade.php",
-		data: "trade=" + tradeId
-	});
+	$.post('ajax/bumpTrade.php', 'trade=' + tradeId);
 	
 	data.item.find('.buttonright').hide();
 	
