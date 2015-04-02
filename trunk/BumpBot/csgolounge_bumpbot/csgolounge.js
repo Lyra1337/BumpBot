@@ -59,12 +59,12 @@ function BumpAllTrades() {
 		function () {
 			setTimeout(function() {
 				window.location.reload(true);
-			}, ((Math.random() * 40) + 31) * 1000 * 60);
+			}, ((Math.random() * 2) + 30.2) * 1000 * 60);
 			//window.location.reload(true);
 			//setTimeout(BumpAllTrades, ((Math.random() * 40) + 31) * 1000 * 60);
 		},
-		0.2,
-		1.7
+		0.1,
+		0.9
 	);
 }
 
